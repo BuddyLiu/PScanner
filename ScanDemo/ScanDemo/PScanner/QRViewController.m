@@ -44,22 +44,18 @@
             [AVCaptureDevice requestAccessForMediaType:mediaType completionHandler:^(BOOL granted)
              {
                  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                     dispatch_async(dispatch_get_main_queue(), ^{
                          
                          if(granted)
                          {
-                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                 [self startScan];
-                             });
+                             [self startScan];
                          }
                          else
                          {
-                             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                 NSString *tips = NSLocalizedString(@"AlertCameraMessage", @"提示语");
-                                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertCameraPrompt", @"提示标题") message:tips delegate:nil cancelButtonTitle:NSLocalizedString(@"AlertCameraSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
-                                 [alert show];
-                                 [self.navigationController popViewControllerAnimated:YES];
-                             });
+                             NSString *tips = NSLocalizedString(@"AlertCameraMessage", @"提示语");
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertCameraPrompt", @"提示标题") message:tips delegate:nil cancelButtonTitle:NSLocalizedString(@"AlertCameraSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
+                             [alert show];
+                             [self.navigationController popViewControllerAnimated:YES];
                          }
                          
                      });
