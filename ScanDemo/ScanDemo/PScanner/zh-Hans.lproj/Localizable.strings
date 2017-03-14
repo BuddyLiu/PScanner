@@ -11,6 +11,7 @@
 
 "AlertPrompt" = "提示";
 "AlertMessage" = "扫码内容已复制！\n是否确定打开该链接！";
+"AlertNotUrlMessage" = "扫码内容已复制！";
 "AlertSureBtnTitle" = "确定";
 "AlertCancelBtnTitle" = "取消";
 

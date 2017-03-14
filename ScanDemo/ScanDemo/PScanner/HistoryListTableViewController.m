@@ -131,43 +131,60 @@
     self.pasteboard = [UIPasteboard generalPasteboard];
     QRModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:self.dataArray[indexPath.row]];
     self.pasteboard.string = model.QRDetail;
-    if(IOS_9_0)
+    if(([model.QRDetail rangeOfString:@"http://"].length > 0)
+       || ([model.QRDetail rangeOfString:@"https://"].length > 0))
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"AlertPrompt", @"提示标题") message:NSLocalizedString(@"AlertMessage", @"提示内容") preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *sureAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"AlertSureBtnTitle", @"确定按钮") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.pasteboard.string]])
-            {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string] options:@{} completionHandler:^(BOOL success) {
-                    
-                }];
-            }
-        }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancelBtnTitle", @"取消按钮") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //nothing to do
-        }];
-        [alert addAction:sureAction];
-        [alert addAction:cancelAction];
-        
-        [self presentViewController:alert animated:YES completion:^{
+        if(IOS_9_0)
+        {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"AlertPrompt", @"提示标题") message:NSLocalizedString(@"AlertMessage", @"提示内容") preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *sureAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"AlertSureBtnTitle", @"确定按钮") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.pasteboard.string]])
+                {
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string] options:@{} completionHandler:^(BOOL success) {
+                        
+                    }];
+                }
+            }];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancelBtnTitle", @"取消按钮") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //nothing to do
+            }];
+            [alert addAction:sureAction];
+            [alert addAction:cancelAction];
             
-        }];
+            [self presentViewController:alert animated:YES completion:^{
+                
+            }];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertPrompt", @"提示标题") message:NSLocalizedString(@"AlertMessage", @"提示内容") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertSureBtnTitle", @"确定按钮") otherButtonTitles:NSLocalizedString(@"AlertCancelBtnTitle", @"取消按钮"),nil];
+            [alert show];
+        }
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertPrompt", @"提示标题") message:NSLocalizedString(@"AlertMessage", @"提示内容") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertSureBtnTitle", @"确定按钮") otherButtonTitles:NSLocalizedString(@"AlertCancelBtnTitle", @"取消按钮"),nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertPrompt", @"提示标题") message:NSLocalizedString(@"AlertNotUrlMessage", @"提示内容") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
+        alert.tag = 10230;
         [alert show];
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 0)
+    if(alertView.tag != 10230)
     {
-        if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.pasteboard.string]])
+        if(buttonIndex == 0)
         {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string] options:@{} completionHandler:^(BOOL success) {
-                
-            }];
+            if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.pasteboard.string]])
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string] options:@{} completionHandler:^(BOOL success) {
+                    
+                }];
+            }
+        }
+        else
+        {
+            //nothing to do
         }
     }
     else

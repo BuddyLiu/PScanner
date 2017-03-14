@@ -75,20 +75,37 @@
         self.scanContentLabel.userInteractionEnabled = YES;
         [self.scanContentLabel setText:scanContent];
         self.scanContentLabel.textColor = [UIColor blackColor];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"扫码内容已复制！\n是否确定打开该链接！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消",nil];
-        [alert show];
+        if(([self.scanContentLabel.text rangeOfString:@"http://"].length > 0)
+           || ([self.scanContentLabel.text rangeOfString:@"https://"].length > 0))
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"扫码内容已复制！\n是否确定打开该链接！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消",nil];
+            [alert show];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"扫码内容已复制！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消",nil];
+            alert.tag = 8790;
+            [alert show];
+        }
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(buttonIndex == 0)
+    if(alertView.tag != 8790)
     {
-        if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.scanContentLabel.text]])
+        if(buttonIndex == 0)
         {
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.scanContentLabel.text] options:@{} completionHandler:^(BOOL success) {
-                
-            }];
+            if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.scanContentLabel.text]])
+            {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.scanContentLabel.text] options:@{} completionHandler:^(BOOL success) {
+                    
+                }];
+            }
+        }
+        else
+        {
+            //nothing to do
         }
     }
     else

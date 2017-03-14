@@ -11,6 +11,7 @@
 
 "AlertPrompt" = "Prompt";
 "AlertMessage" = "Scanning content has been copied!\n Are you sure to open the link!";
+"AlertNotUrlMessage" = "Scanning content has been copied!";
 "AlertSureBtnTitle" = "Sure";
 "AlertCancelBtnTitle" = "Cancel";
 
