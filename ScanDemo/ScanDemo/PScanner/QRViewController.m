@@ -12,6 +12,7 @@
 #import "QRView.h"
 #import "HistoryListTableViewController.h"
 #import "QRModel.h"
+#import "DBManager.h"
 
 @interface QRViewController ()<AVCaptureMetadataOutputObjectsDelegate,QRViewDelegate>
 
@@ -21,6 +22,7 @@
 @property (strong, nonatomic) AVCaptureSession * session;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * preview;
 @property (strong, nonatomic) QRView *qrRectView;
+@property (strong, nonatomic) UIButton *lightBtn;
 
 @end
 
@@ -30,6 +32,8 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    [[DBManager sharedManager] createDatabaseWithName:HistoryListDB];
+    [[DBManager sharedManager] addTableToDatabase:HistoryListDB withTBName:HistoryListTab model:[QRModel class]];
     [self checkAuthor];
 }
 
@@ -142,6 +146,12 @@
     self.qrRectView.delegate = self;
     [self.view addSubview:self.qrRectView];
     
+    self.lightBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.qrRectView.frame.size.width - 60, 80, 40, 40)];
+    [self.lightBtn setBackgroundImage:[UIImage imageNamed:@"green_light"] forState:UIControlStateNormal];
+    [self.lightBtn addTarget:self action:@selector(lightClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.lightBtn.tag = 1003;
+    [self.view addSubview:self.lightBtn];
+    
     UIButton *recordListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     recordListBtn.frame = CGRectMake(0, 0, 80, 40);
     [recordListBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -168,6 +178,52 @@
 {
     HistoryListTableViewController *historyList = [[HistoryListTableViewController alloc] init];
     [self.navigationController pushViewController:historyList animated:YES];
+}
+
+-(void)lightClick:(UIButton *)sender
+{
+    if(sender.tag == 1003)
+    {
+        [sender setBackgroundImage:[UIImage imageNamed:@"red_light"] forState:UIControlStateNormal];
+        [self turnOnLed];
+        sender.tag = 1004;
+    }
+    else
+    {
+        [sender setBackgroundImage:[UIImage imageNamed:@"green_light"] forState:UIControlStateNormal];
+        [self turnOffLed];
+        sender.tag = 1003;
+    }
+}
+
+-(void)turnOffLed {
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if ([device hasTorch])
+    {
+        [device lockForConfiguration:nil];
+        [device setTorchMode: AVCaptureTorchModeOff];
+        [device unlockForConfiguration];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertLightPrompt", @"提示标题") message:NSLocalizedString(@"AlertLightMessage", @"提示语") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertLightSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
+        [alert show];
+    }
+}
+
+-(void)turnOnLed {
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    if ([device hasTorch])
+    {
+        [device lockForConfiguration:nil];
+        [device setTorchMode: AVCaptureTorchModeOn];
+        [device unlockForConfiguration];
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertLightPrompt", @"提示标题") message:NSLocalizedString(@"AlertLightMessage", @"提示语") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertLightSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 #pragma mark QRViewDelegate
@@ -199,6 +255,7 @@
                                         AVMetadataObjectTypeCode128Code,
                                         AVMetadataObjectTypeQRCode];
     }
+    [self.view bringSubviewToFront:self.lightBtn];
 }
 
 #pragma mark AVCaptureMetadataOutputObjectsDelegate
@@ -215,37 +272,22 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(finishScanWithContent:)])
     {
         QRModel *model = [[QRModel alloc] initWithDic:@{@"title":[self getCurrentDateString], @"detail":stringValue, @"remark":@"0"}];
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:model];
-        NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:HistoryListDataArray];
+        NSArray *arr = [[DBManager sharedManager] fetchAllDataFromDataBaseName:HistoryListDB tableName:HistoryListTab model:[QRModel new]];
         if(arr && arr.count > 0)
         {
-            NSMutableArray *mArr = [arr mutableCopy];
-            BOOL isNew = YES;
-            for (NSData *data in arr)
+            for (QRModel *objModel in arr)
             {
-                QRModel *objModel = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-                if([objModel.QRDetail isEqual:model.QRDetail])
+                if([objModel.detail isEqual:model.detail])
                 {
-                    [mArr removeObject:objModel];
-                    [mArr insertObject:[NSKeyedArchiver archivedDataWithRootObject:model] atIndex:0];
-                    isNew = NO;
+                    [[DBManager sharedManager] deleteDataFromDatabase:HistoryListDB tableName:HistoryListTab model:objModel];
                     break;
                 }
             }
-            if(isNew)
-            {
-                [mArr insertObject:data atIndex:0];
-                [[NSUserDefaults standardUserDefaults] setObject:[mArr copy] forKey:HistoryListDataArray];
-            }
-            else
-            {
-                [[NSUserDefaults standardUserDefaults] setObject:[mArr copy] forKey:HistoryListDataArray];
-            }
+            [[DBManager sharedManager] insertDataToDatabase:HistoryListDB tableName:HistoryListTab model:model];
         }
         else
         {
-            NSMutableArray *mArr = [NSMutableArray arrayWithObject:data];
-            [[NSUserDefaults standardUserDefaults] setObject:[mArr copy] forKey:HistoryListDataArray];
+            [[DBManager sharedManager] insertDataToDatabase:HistoryListDB tableName:HistoryListTab model:model];
         }
         [self.delegate finishScanWithContent:stringValue];
     }

@@ -20,3 +20,8 @@
 "AlertCameraMessageWithPath" = "需要保存图片到相册请授权本App可以访问相册\n设置方式:手机设置->隐私->照片允许本App访问相册";
 "AlertCameraSureBtnTitle" = "确定";
 "AlertCameraCancelBtnTitle" = "取消";
+
+"AlertLightPrompt" = "提示";
+"AlertLightMessage" = "该设备无闪光灯！";
+"AlertLightSureBtnTitle" = "确定";
+"AlertLightCancelBtnTitle" = "取消";

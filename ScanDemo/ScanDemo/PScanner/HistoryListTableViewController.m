@@ -7,6 +7,7 @@
 //
 
 #import "HistoryListTableViewController.h"
+#import "DBManager.h"
 
 #define IOS_9_0 ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0 ? YES:NO)
 
@@ -27,9 +28,24 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.dataArray = [NSMutableArray new];
-    NSArray *arr = [[NSUserDefaults standardUserDefaults] objectForKey:HistoryListDataArray];
+    
+    NSMutableArray *arr = [[[DBManager sharedManager] fetchAllDataFromDataBaseName:HistoryListDB tableName:HistoryListTab model:[QRModel new]] mutableCopy];
     if(arr && arr.count>0)
     {
+        for(int i = 0; i<arr.count-1; i++)
+        {
+            QRModel *modelI = arr[i];
+            NSString *modelITitle = [[modelI.title stringByReplacingOccurrencesOfString:@"/" withString:@""] stringByReplacingOccurrencesOfString:@":" withString:@""];
+            for(int j = i+1; j<arr.count; j++)
+            {
+                QRModel *modelJ = arr[j];
+                NSString *modelJTitle = [[modelJ.title stringByReplacingOccurrencesOfString:@"/" withString:@""] stringByReplacingOccurrencesOfString:@":" withString:@""];
+                if([modelITitle doubleValue] < [modelJTitle doubleValue])
+                {
+                    [arr exchangeObjectAtIndex:i withObjectAtIndex:j];
+                }
+            }
+        }
         self.dataArray = [arr mutableCopy];
     }
     else
@@ -68,14 +84,14 @@
     {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
-    QRModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:self.dataArray[indexPath.row]];
-    if(model && model.QRTitle && model.QRDetail)
+    QRModel *model = self.dataArray[indexPath.row];
+    if(model && model.title && model.detail)
     {
-        cell.textLabel.text = model.QRTitle;
-        cell.detailTextLabel.text = model.QRDetail;
+        cell.textLabel.text = model.title;
+        cell.detailTextLabel.text = model.detail;
         cell.detailTextLabel.numberOfLines = 0;
         [cell.detailTextLabel setAdjustsFontSizeToFitWidth:YES];
-        if([model.QRRemark isEqual:@"0"])
+        if([model.remark isEqual:@"0"])
         {
             cell.tintColor = [UIColor blackColor];
             [cell.textLabel setTextColor:[UIColor blackColor]];
@@ -102,8 +118,8 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete)
     {
+        [[DBManager sharedManager] deleteDataFromDatabase:HistoryListDB tableName:HistoryListTab model:self.dataArray[indexPath.row]];
         [self.dataArray removeObjectAtIndex:indexPath.row];
-        [[NSUserDefaults standardUserDefaults] setObject:self.dataArray forKey:HistoryListDataArray];
         [self.tableView reloadData];
     }
     
@@ -111,28 +127,28 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
-    QRModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:self.dataArray[indexPath.row]];
-    if([model.QRRemark isEqual:@"0"])
+    QRModel *model = self.dataArray[indexPath.row];
+    if([model.remark isEqual:@"0"])
     {
-        model.QRRemark = @"1";
+        model.remark = @"1";
     }
     else
     {
-        model.QRRemark = @"0";
+        model.remark = @"0";
     }
     
-    [self.dataArray replaceObjectAtIndex:indexPath.row withObject:[NSKeyedArchiver archivedDataWithRootObject:model]];
-    [[NSUserDefaults standardUserDefaults] setObject:self.dataArray forKey:HistoryListDataArray];
+    [self.dataArray replaceObjectAtIndex:indexPath.row withObject:model];
+    [[DBManager sharedManager] rewriteDataFromDatabase:HistoryListDB inTable:HistoryListTab model:self.dataArray[indexPath.row]];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.pasteboard = [UIPasteboard generalPasteboard];
-    QRModel *model = [NSKeyedUnarchiver unarchiveObjectWithData:self.dataArray[indexPath.row]];
-    self.pasteboard.string = model.QRDetail;
-    if(([model.QRDetail rangeOfString:@"http://"].length > 0)
-       || ([model.QRDetail rangeOfString:@"https://"].length > 0))
+    QRModel *model = self.dataArray[indexPath.row];
+    self.pasteboard.string = model.detail;
+    if(([model.detail rangeOfString:@"http://"].length > 0)
+       || ([model.detail rangeOfString:@"https://"].length > 0))
     {
         if(IOS_9_0)
         {

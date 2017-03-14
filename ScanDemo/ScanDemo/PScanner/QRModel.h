@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QRModel : NSObject
+@interface QRModel :
 
-@property (nonatomic, copy) NSString *QRTitle;
-@property (nonatomic, copy) NSString *QRDetail;
-@property (nonatomic, copy) NSString *QRRemark;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *detail;
+@property (nonatomic, copy) NSString *remark;
 
 -(id)initWithDic:(NSDictionary *)dic;
 

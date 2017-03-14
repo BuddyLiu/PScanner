@@ -20,3 +20,8 @@
 "AlertCameraMessageWithPath" = "Need to save the picture to the album Please authorize the App can access the album \ n set the way: phone settings -> privacy -> photos allow the App to visit the album";
 "AlertCameraSureBtnTitle" = "Sure";
 "AlertCameraCancelBtnTitle" = "Cancel";
+
+"AlertLightPrompt" = "Prompt";
+"AlertLightMessage" = "Could not find led in this device!";
+"AlertLightSureBtnTitle" = "Sure";
+"AlertLightCancelBtnTitle" = "Cancel";

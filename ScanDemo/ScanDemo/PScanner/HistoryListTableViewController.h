@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "QRModel.h"
 
-#define HistoryListDataArray @"HistoryListDataArray"
+#define HistoryListDB @"HistoryListDB"
+#define HistoryListTab @"HistoryListTab"
 
 @interface HistoryListTableViewController : UITableViewController
 

@@ -8,7 +8,7 @@
 
 #import "QRModel.h"
 
-@interface QRModel()<NSCopying, NSCoding>
+@interface QRModel()<NSCopying>
 
 @end
 
@@ -18,9 +18,9 @@
 {
     if(self)
     {
-        self.QRTitle = [dic objectForKey:@"title"]?[dic objectForKey:@"title"]:@"";
-        self.QRDetail = [dic objectForKey:@"detail"]?[dic objectForKey:@"detail"]:@"";
-        self.QRRemark = [dic objectForKey:@"remark"]?[dic objectForKey:@"remark"]:@"0";
+        self.title = [dic objectForKey:@"title"]?[dic objectForKey:@"title"]:@"";
+        self.detail = [dic objectForKey:@"detail"]?[dic objectForKey:@"detail"]:@"";
+        self.remark = [dic objectForKey:@"remark"]?[dic objectForKey:@"remark"]:@"0";
     }
     return self;
 }
@@ -30,35 +30,18 @@
     QRModel *model = [QRModel new];
     if(self)
     {
-        model.QRTitle = self.QRTitle;
-        model.QRDetail = self.QRDetail;
-        model.QRRemark = self.QRRemark;
+        model.title = self.title;
+        model.detail = self.detail;
+        model.remark = self.remark;
         return model;
     }
     else
     {
-        model.QRTitle = @"";
-        model.QRDetail = @"";
-        model.QRRemark = @"0";
+        model.title = @"";
+        model.detail = @"";
+        model.remark = @"0";
         return model;
     }
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    
-    if (self == [super init])
-    {
-        self.QRTitle = [aDecoder decodeObjectForKey:@"title"];
-        self.QRDetail = [aDecoder decodeObjectForKey:@"detail"];
-        self.QRRemark = [aDecoder decodeObjectForKey:@"remark"];
-    }
-    return self;
-}
-
--(void)encodeWithCoder:(NSCoder *)aCoder
-{
-    [aCoder encodeObject:self.QRTitle forKey:@"title"];
-    [aCoder encodeObject:self.QRDetail forKey:@"detail"];
-    [aCoder encodeObject:self.QRRemark forKey:@"remark"];
-}
 @end

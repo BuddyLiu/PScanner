@@ -21,10 +21,13 @@
 		DA7FDEB31E640D9400394E1E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDEB21E640D9400394E1E /* AppDelegate.m */; };
 		DA7FDEB61E640D9400394E1E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDEB51E640D9400394E1E /* ViewController.m */; };
 		DA7FDEB91E640D9400394E1E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7FDEB71E640D9400394E1E /* Main.storyboard */; };
-		DA7FDEBB1E640D9400394E1E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DA7FDEBA1E640D9400394E1E /* Assets.xcassets */; };
 		DA7FDEBE1E640D9400394E1E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DA7FDEBC1E640D9400394E1E /* LaunchScreen.storyboard */; };
 		DA7FDEC91E640D9400394E1E /* ScanDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDEC81E640D9400394E1E /* ScanDemoTests.m */; };
 		DA7FDED41E640D9400394E1E /* ScanDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDED31E640D9400394E1E /* ScanDemoUITests.m */; };
+		DAABCC911E779BC800AF9C49 /* green_light.png in Resources */ = {isa = PBXBuildFile; fileRef = DAABCC8F1E779BC800AF9C49 /* green_light.png */; };
+		DAABCC921E779BC800AF9C49 /* red_light.png in Resources */ = {isa = PBXBuildFile; fileRef = DAABCC901E779BC800AF9C49 /* red_light.png */; };
+		DAABCC941E77AB9900AF9C49 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAABCC931E77AB9900AF9C49 /* Assets.xcassets */; };
+		DAABCC971E77AE8500AF9C49 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DAABCC961E77AE8500AF9C49 /* DBManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +78,6 @@
 		DA7FDEB41E640D9400394E1E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		DA7FDEB51E640D9400394E1E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		DA7FDEB81E640D9400394E1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		DA7FDEBA1E640D9400394E1E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA7FDEBD1E640D9400394E1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DA7FDEBF1E640D9400394E1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA7FDEC41E640D9400394E1E /* ScanDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +86,11 @@
 		DA7FDECF1E640D9400394E1E /* ScanDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScanDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7FDED31E640D9400394E1E /* ScanDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanDemoUITests.m; sourceTree = "<group>"; };
 		DA7FDED51E640D9400394E1E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAABCC8F1E779BC800AF9C49 /* green_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = green_light.png; path = PScanner/icon/green_light.png; sourceTree = "<group>"; };
+		DAABCC901E779BC800AF9C49 /* red_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = red_light.png; path = PScanner/icon/red_light.png; sourceTree = "<group>"; };
+		DAABCC931E77AB9900AF9C49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAABCC951E77AE8500AF9C49 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		DAABCC961E77AE8500AF9C49 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		E8E4244072CCABC5B63F4340 /* Pods-ScanDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScanDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScanDemo/Pods-ScanDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -171,9 +178,9 @@
 				DA7FDEB41E640D9400394E1E /* ViewController.h */,
 				DA7FDEB51E640D9400394E1E /* ViewController.m */,
 				DA7FDEB71E640D9400394E1E /* Main.storyboard */,
-				DA7FDEBA1E640D9400394E1E /* Assets.xcassets */,
 				DA7FDEBC1E640D9400394E1E /* LaunchScreen.storyboard */,
 				DA7FDEBF1E640D9400394E1E /* Info.plist */,
+				DAABCC931E77AB9900AF9C49 /* Assets.xcassets */,
 				DA7FDEAE1E640D9400394E1E /* Supporting Files */,
 			);
 			path = ScanDemo;
@@ -209,6 +216,7 @@
 		DA7FDEF31E6413E600394E1E /* Scan */ = {
 			isa = PBXGroup;
 			children = (
+				DAABCC8E1E779BB000AF9C49 /* icon */,
 				DA4A15251E7776B400722F31 /* Localizable.strings */,
 				DA4A14FF1E7775BB00722F31 /* HistoryListTableViewController.h */,
 				DA4A15001E7775BB00722F31 /* HistoryListTableViewController.m */,
@@ -224,8 +232,19 @@
 				DA4A150A1E7775BB00722F31 /* QRView.m */,
 				DA4A150B1E7775BB00722F31 /* QRViewController.h */,
 				DA4A150C1E7775BB00722F31 /* QRViewController.m */,
+				DAABCC951E77AE8500AF9C49 /* DBManager.h */,
+				DAABCC961E77AE8500AF9C49 /* DBManager.m */,
 			);
 			name = Scan;
+			sourceTree = "<group>";
+		};
+		DAABCC8E1E779BB000AF9C49 /* icon */ = {
+			isa = PBXGroup;
+			children = (
+				DAABCC8F1E779BC800AF9C49 /* green_light.png */,
+				DAABCC901E779BC800AF9C49 /* red_light.png */,
+			);
+			name = icon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,10 +360,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAABCC921E779BC800AF9C49 /* red_light.png in Resources */,
+				DAABCC911E779BC800AF9C49 /* green_light.png in Resources */,
 				DA4A15231E7776B400722F31 /* Localizable.strings in Resources */,
 				DA7FDEBE1E640D9400394E1E /* LaunchScreen.storyboard in Resources */,
+				DAABCC941E77AB9900AF9C49 /* Assets.xcassets in Resources */,
 				DA50F2761E76F114004C5579 /* InfoPlist.strings in Resources */,
-				DA7FDEBB1E640D9400394E1E /* Assets.xcassets in Resources */,
 				DA7FDEB91E640D9400394E1E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,6 +446,7 @@
 				DA7FDEB61E640D9400394E1E /* ViewController.m in Sources */,
 				DA7FDEB31E640D9400394E1E /* AppDelegate.m in Sources */,
 				DA7FDEB01E640D9400394E1E /* main.m in Sources */,
+				DAABCC971E77AE8500AF9C49 /* DBManager.m in Sources */,
 				DA4A15171E7775BB00722F31 /* QRViewController.m in Sources */,
 				DA4A15121E7775BB00722F31 /* QRItem.m in Sources */,
 				DA4A15151E7775BB00722F31 /* QRSourceHelper.m in Sources */,
