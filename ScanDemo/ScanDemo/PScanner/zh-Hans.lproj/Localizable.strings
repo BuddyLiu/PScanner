@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  ScanDemo
+
+  Created by Paul on 14/03/2017.
+  Copyright © 2017 Paul. All rights reserved.
+*/
+"ScanRecord" = "扫描纪录";
+"QRCodeScan" = "二维码扫描";
+"BarCodeScan" = "条形码扫描";
+
+"AlertPrompt" = "提示";
+"AlertMessage" = "扫码内容已复制！\n是否确定打开该链接！";
+"AlertSureBtnTitle" = "确定";
+"AlertCancelBtnTitle" = "取消";
+
+"AlertCameraPrompt" = "打开相机需要授权！";
+"AlertCameraMessage" = "你的权限受限!";
+"AlertCameraMessageWithPath" = "需要保存图片到相册请授权本App可以访问相册\n设置方式:手机设置->隐私->照片允许本App访问相册";
+"AlertCameraSureBtnTitle" = "确定";
+"AlertCameraCancelBtnTitle" = "取消";

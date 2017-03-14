@@ -1,0 +1,21 @@
+/* 
+  Localizable.strings
+  ScanDemo
+
+  Created by Paul on 14/03/2017.
+  Copyright © 2017 Paul. All rights reserved.
+*/
+"ScanRecord" = "Scan Record";
+"QRCode" = "Scan QR Code";
+"BarCode" = "Scan Bar Code";
+
+"AlertPrompt" = "Prompt";
+"AlertMessage" = "Scanning content has been copied!\n Are you sure to open the link!";
+"AlertSureBtnTitle" = "Sure";
+"AlertCancelBtnTitle" = "Cancel";
+
+"AlertCameraPrompt" = "The camera needs to be turned on!";
+"AlertCameraMessage" = "Your permission is limited!";
+"AlertCameraMessageWithPath" = "Need to save the picture to the album Please authorize the App can access the album \ n set the way: phone settings -> privacy -> photos allow the App to visit the album";
+"AlertCameraSureBtnTitle" = "Sure";
+"AlertCameraCancelBtnTitle" = "Cancel";

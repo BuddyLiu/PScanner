@@ -1,0 +1,8 @@
+/* 
+  InfoPlist.strings
+  ScanDemo
+
+  Created by Paul on 13/03/2017.
+  Copyright © 2017 Paul. All rights reserved.
+*/
+CFBundleDisplayName = "PSR";
