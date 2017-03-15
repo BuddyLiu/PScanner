@@ -6,6 +6,7 @@
   Copyright © 2017 Paul. All rights reserved.
 */
 "ScanRecord" = "扫描纪录";
+"ScanPhoto" = "相册";
 "QRCodeScan" = "二维码扫描";
 "BarCodeScan" = "条形码扫描";
 

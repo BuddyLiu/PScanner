@@ -13,8 +13,9 @@
 #import "HistoryListTableViewController.h"
 #import "QRModel.h"
 #import "DBManager.h"
+#import "FFDropDownMenuView.h"
 
-@interface QRViewController ()<AVCaptureMetadataOutputObjectsDelegate,QRViewDelegate>
+@interface QRViewController ()<AVCaptureMetadataOutputObjectsDelegate,QRViewDelegate, FFDropDownMenuViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (strong, nonatomic) AVCaptureDevice * device;
 @property (strong, nonatomic) AVCaptureDeviceInput * input;
@@ -23,6 +24,8 @@
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer * preview;
 @property (strong, nonatomic) QRView *qrRectView;
 @property (strong, nonatomic) UIButton *lightBtn;
+@property (nonatomic, strong) FFDropDownMenuView *dropDownMenu;
+@property (strong, nonatomic) CIDetector *detector;
 
 @end
 
@@ -146,20 +149,22 @@
     self.qrRectView.delegate = self;
     [self.view addSubview:self.qrRectView];
     
-    self.lightBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.qrRectView.frame.size.width - 60, 80, 40, 40)];
-    [self.lightBtn setBackgroundImage:[UIImage imageNamed:@"green_light"] forState:UIControlStateNormal];
+    self.lightBtn = [[UIButton alloc] initWithFrame:CGRectMake(30, self.view.frame.size.height - 150, 30, 30)];
+    [self.lightBtn setBackgroundImage:[UIImage imageNamed:@"light_off"] forState:UIControlStateNormal];
     [self.lightBtn addTarget:self action:@selector(lightClick:) forControlEvents:UIControlEventTouchUpInside];
     self.lightBtn.tag = 1003;
     [self.view addSubview:self.lightBtn];
     
-    UIButton *recordListBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    recordListBtn.frame = CGRectMake(0, 0, 80, 40);
-    [recordListBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [recordListBtn setTitle:NSLocalizedString(@"ScanRecord", @"扫码记录") forState:UIControlStateNormal];
-    [recordListBtn.titleLabel setAdjustsFontSizeToFitWidth:YES];
-    [recordListBtn addTarget:self action:@selector(historyListBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:recordListBtn];
-
+    UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    moreBtn.frame = CGRectMake(0, 0, 30, 30);
+    [moreBtn setBackgroundImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
+    [moreBtn.titleLabel setAdjustsFontSizeToFitWidth:YES];
+    [moreBtn addTarget:self action:@selector(moreBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    
+    NSArray *modelsArray = [self getMenuModelsArray];
+    self.dropDownMenu = [FFDropDownMenuView ff_DefaultStyleDropDownMenuWithMenuModelsArray:modelsArray menuWidth:-10 eachItemHeight:-10 menuRightMargin:-10 triangleRightMargin:-10];
+    
     //修正扫描区域
     CGFloat screenHeight = self.view.frame.size.height;
     CGFloat screenWidth = self.view.frame.size.width;
@@ -174,23 +179,75 @@
                                           cropRect.size.width / screenWidth)];
 }
 
--(void)historyListBtnClick:(UIButton *)sender
+-(void)moreBtnClick:(UIButton *)sender
 {
-    HistoryListTableViewController *historyList = [[HistoryListTableViewController alloc] init];
-    [self.navigationController pushViewController:historyList animated:YES];
+    [self.dropDownMenu showMenu];
+}
+
+//创建下拉列表数据源
+- (NSArray *)getMenuModelsArray
+{
+    __weak typeof(self) weakSelf = self;
+    
+    FFDropDownMenuModel *menuModel0 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:NSLocalizedString(@"ScanRecord", @"扫码记录") menuItemIconName:@"scan"  menuBlock:^{
+        
+        HistoryListTableViewController *historyList = [[HistoryListTableViewController alloc] init];
+        [weakSelf.navigationController pushViewController:historyList animated:YES];
+        
+    }];
+    
+    FFDropDownMenuModel *menuModel1 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:NSLocalizedString(@"ScanPhoto", @"相册") menuItemIconName:@"photos" menuBlock:^{
+        
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.delegate = weakSelf;
+        picker.allowsEditing = NO;
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [weakSelf.navigationController presentViewController:picker animated:YES completion:nil];
+    
+    }];
+    
+    NSArray *menuModelArr = @[menuModel0, menuModel1];
+    return menuModelArr;
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+- ( void )imagePickerController:( UIImagePickerController *)picker didFinishPickingMediaWithInfo:( NSDictionary *)info
+{
+    self.detector = [CIDetector detectorOfType:CIDetectorTypeQRCode context:nil options:@{ CIDetectorAccuracy : CIDetectorAccuracyHigh}];
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+
+    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    if (!image)
+    {
+        image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    NSArray *features = [self.detector featuresInImage:[CIImage imageWithCGImage:image.CGImage]];
+    if (features.count >=1)
+    {
+        CIQRCodeFeature *feature = [features objectAtIndex:0];
+        NSString *scannedResult = feature.messageString;
+        [self saveScanString:scannedResult];
+        [self.delegate finishScanWithContent:scannedResult];
+    }
+    else
+    {
+        [self.delegate finishScanWithContent:nil];
+    }
 }
 
 -(void)lightClick:(UIButton *)sender
 {
     if(sender.tag == 1003)
     {
-        [sender setBackgroundImage:[UIImage imageNamed:@"red_light"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"light_on"] forState:UIControlStateNormal];
         [self turnOnLed];
         sender.tag = 1004;
     }
     else
     {
-        [sender setBackgroundImage:[UIImage imageNamed:@"green_light"] forState:UIControlStateNormal];
+        [sender setBackgroundImage:[UIImage imageNamed:@"light_off"] forState:UIControlStateNormal];
         [self turnOffLed];
         sender.tag = 1003;
     }
@@ -271,27 +328,33 @@
     }
     if(self.delegate && [self.delegate respondsToSelector:@selector(finishScanWithContent:)])
     {
-        QRModel *model = [[QRModel alloc] initWithDic:@{@"title":[self getCurrentDateString], @"detail":stringValue, @"remark":@"0"}];
-        NSArray *arr = [[DBManager sharedManager] fetchAllDataFromDataBaseName:HistoryListDB tableName:HistoryListTab model:[QRModel new]];
-        if(arr && arr.count > 0)
-        {
-            for (QRModel *objModel in arr)
-            {
-                if([objModel.detail isEqual:model.detail])
-                {
-                    [[DBManager sharedManager] deleteDataFromDatabase:HistoryListDB tableName:HistoryListTab model:objModel];
-                    break;
-                }
-            }
-            [[DBManager sharedManager] insertDataToDatabase:HistoryListDB tableName:HistoryListTab model:model];
-        }
-        else
-        {
-            [[DBManager sharedManager] insertDataToDatabase:HistoryListDB tableName:HistoryListTab model:model];
-        }
+        [self saveScanString:stringValue];
         [self.delegate finishScanWithContent:stringValue];
     }
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+//将扫码结果存入数据库
+-(void)saveScanString:(NSString *)stringValue
+{
+    QRModel *model = [[QRModel alloc] initWithDic:@{@"title":[self getCurrentDateString], @"detail":stringValue, @"remark":@"0"}];
+    NSArray *arr = [[DBManager sharedManager] fetchAllDataFromDataBaseName:HistoryListDB tableName:HistoryListTab model:[QRModel new]];
+    if(arr && arr.count > 0)
+    {
+        for (QRModel *objModel in arr)
+        {
+            if([objModel.detail isEqual:model.detail])
+            {
+                [[DBManager sharedManager] deleteDataFromDatabase:HistoryListDB tableName:HistoryListTab model:objModel];
+                break;
+            }
+        }
+        [[DBManager sharedManager] insertDataToDatabase:HistoryListDB tableName:HistoryListTab model:model];
+    }
+    else
+    {
+        [[DBManager sharedManager] insertDataToDatabase:HistoryListDB tableName:HistoryListTab model:model];
+    }
 }
 
 -(NSString *)getCurrentDateString

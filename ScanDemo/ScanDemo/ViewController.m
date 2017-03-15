@@ -40,7 +40,6 @@
     self.scanContentLabel.layer.borderWidth = 1.5;
     self.scanContentLabel.layer.borderColor = [[UIColor greenColor] colorWithAlphaComponent:0.3].CGColor;
     self.scanContentLabel.backgroundColor = [UIColor groupTableViewBackgroundColor];
-    self.scanContentLabel.userInteractionEnabled = NO;
     [self.view addSubview:self.scanContentLabel];
     
     self.scanBtn = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/4.0, self.view.frame.size.height/2.0, self.view.frame.size.width/2.0, self.view.frame.size.width/2.0)];
@@ -72,27 +71,33 @@
 {
     if(scanContent && self.scanContentLabel)
     {
-        self.scanContentLabel.userInteractionEnabled = YES;
         [self.scanContentLabel setText:scanContent];
         self.scanContentLabel.textColor = [UIColor blackColor];
         if(([self.scanContentLabel.text rangeOfString:@"http://"].length > 0)
            || ([self.scanContentLabel.text rangeOfString:@"https://"].length > 0))
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"扫码内容已复制！\n是否确定打开该链接！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消",nil];
+            alert.tag = 8790;
             [alert show];
         }
         else
         {
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"扫码内容已复制！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消",nil];
-            alert.tag = 8790;
+            alert.tag = 8791;
             [alert show];
         }
+    }
+    else
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"未检测到二维码！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        alert.tag = 8791;
+        [alert show];
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if(alertView.tag != 8790)
+    if(alertView.tag == 8790)
     {
         if(buttonIndex == 0)
         {
@@ -110,7 +115,8 @@
     }
     else
     {
-        //nothing to do
+        self.scanContentLabel.text = @"点击下方按钮";
+        self.scanContentLabel.textColor = [[UIColor grayColor] colorWithAlphaComponent:0.5];
     }
 }
 

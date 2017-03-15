@@ -17,6 +17,17 @@
 		DA4A15171E7775BB00722F31 /* QRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA4A150C1E7775BB00722F31 /* QRViewController.m */; };
 		DA4A15231E7776B400722F31 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA4A15251E7776B400722F31 /* Localizable.strings */; };
 		DA50F2761E76F114004C5579 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = DA50F2781E76F114004C5579 /* InfoPlist.strings */; };
+		DA56EBDA1E78E8C40033C0F0 /* FFDropDownMenuBasedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA56EBCF1E78E8C40033C0F0 /* FFDropDownMenuBasedCell.m */; };
+		DA56EBDB1E78E8C40033C0F0 /* FFDropDownMenuBasedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA56EBD11E78E8C40033C0F0 /* FFDropDownMenuBasedModel.m */; };
+		DA56EBDC1E78E8C40033C0F0 /* FFDropDownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = DA56EBD31E78E8C40033C0F0 /* FFDropDownMenuCell.m */; };
+		DA56EBDD1E78E8C40033C0F0 /* FFDropDownMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = DA56EBD51E78E8C40033C0F0 /* FFDropDownMenuModel.m */; };
+		DA56EBDE1E78E8C40033C0F0 /* FFDropDownMenuTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA56EBD71E78E8C40033C0F0 /* FFDropDownMenuTriangleView.m */; };
+		DA56EBDF1E78E8C40033C0F0 /* FFDropDownMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = DA56EBD91E78E8C40033C0F0 /* FFDropDownMenuView.m */; };
+		DA56EBE71E7910430033C0F0 /* more.png in Resources */ = {isa = PBXBuildFile; fileRef = DA56EBE61E7910430033C0F0 /* more.png */; };
+		DA56EBEA1E7910BC0033C0F0 /* photos.png in Resources */ = {isa = PBXBuildFile; fileRef = DA56EBE81E7910BC0033C0F0 /* photos.png */; };
+		DA56EBEB1E7910BC0033C0F0 /* scan.png in Resources */ = {isa = PBXBuildFile; fileRef = DA56EBE91E7910BC0033C0F0 /* scan.png */; };
+		DA56EBEE1E7912DC0033C0F0 /* light_off.png in Resources */ = {isa = PBXBuildFile; fileRef = DA56EBEC1E7912DC0033C0F0 /* light_off.png */; };
+		DA56EBEF1E7912DC0033C0F0 /* light_on.png in Resources */ = {isa = PBXBuildFile; fileRef = DA56EBED1E7912DC0033C0F0 /* light_on.png */; };
 		DA7FDEB01E640D9400394E1E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDEAF1E640D9400394E1E /* main.m */; };
 		DA7FDEB31E640D9400394E1E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDEB21E640D9400394E1E /* AppDelegate.m */; };
 		DA7FDEB61E640D9400394E1E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DA7FDEB51E640D9400394E1E /* ViewController.m */; };
@@ -71,6 +82,24 @@
 		DA50F2831E76FE05004C5579 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		DA50F2841E76FE05004C5579 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		DA50F2851E76FE05004C5579 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		DA56EBCD1E78E8C40033C0F0 /* FFDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenu.h; sourceTree = "<group>"; };
+		DA56EBCE1E78E8C40033C0F0 /* FFDropDownMenuBasedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuBasedCell.h; sourceTree = "<group>"; };
+		DA56EBCF1E78E8C40033C0F0 /* FFDropDownMenuBasedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuBasedCell.m; sourceTree = "<group>"; };
+		DA56EBD01E78E8C40033C0F0 /* FFDropDownMenuBasedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuBasedModel.h; sourceTree = "<group>"; };
+		DA56EBD11E78E8C40033C0F0 /* FFDropDownMenuBasedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuBasedModel.m; sourceTree = "<group>"; };
+		DA56EBD21E78E8C40033C0F0 /* FFDropDownMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuCell.h; sourceTree = "<group>"; };
+		DA56EBD31E78E8C40033C0F0 /* FFDropDownMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuCell.m; sourceTree = "<group>"; };
+		DA56EBD41E78E8C40033C0F0 /* FFDropDownMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuModel.h; sourceTree = "<group>"; };
+		DA56EBD51E78E8C40033C0F0 /* FFDropDownMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuModel.m; sourceTree = "<group>"; };
+		DA56EBD61E78E8C40033C0F0 /* FFDropDownMenuTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuTriangleView.h; sourceTree = "<group>"; };
+		DA56EBD71E78E8C40033C0F0 /* FFDropDownMenuTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuTriangleView.m; sourceTree = "<group>"; };
+		DA56EBD81E78E8C40033C0F0 /* FFDropDownMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuView.h; sourceTree = "<group>"; };
+		DA56EBD91E78E8C40033C0F0 /* FFDropDownMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuView.m; sourceTree = "<group>"; };
+		DA56EBE61E7910430033C0F0 /* more.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = more.png; sourceTree = "<group>"; };
+		DA56EBE81E7910BC0033C0F0 /* photos.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photos.png; sourceTree = "<group>"; };
+		DA56EBE91E7910BC0033C0F0 /* scan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scan.png; sourceTree = "<group>"; };
+		DA56EBEC1E7912DC0033C0F0 /* light_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_off.png; sourceTree = "<group>"; };
+		DA56EBED1E7912DC0033C0F0 /* light_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = light_on.png; sourceTree = "<group>"; };
 		DA7FDEAB1E640D9400394E1E /* ScanDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScanDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA7FDEAF1E640D9400394E1E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		DA7FDEB11E640D9400394E1E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -146,6 +175,26 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		DA56EBCC1E78E8C40033C0F0 /* FFDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				DA56EBCD1E78E8C40033C0F0 /* FFDropDownMenu.h */,
+				DA56EBCE1E78E8C40033C0F0 /* FFDropDownMenuBasedCell.h */,
+				DA56EBCF1E78E8C40033C0F0 /* FFDropDownMenuBasedCell.m */,
+				DA56EBD01E78E8C40033C0F0 /* FFDropDownMenuBasedModel.h */,
+				DA56EBD11E78E8C40033C0F0 /* FFDropDownMenuBasedModel.m */,
+				DA56EBD21E78E8C40033C0F0 /* FFDropDownMenuCell.h */,
+				DA56EBD31E78E8C40033C0F0 /* FFDropDownMenuCell.m */,
+				DA56EBD41E78E8C40033C0F0 /* FFDropDownMenuModel.h */,
+				DA56EBD51E78E8C40033C0F0 /* FFDropDownMenuModel.m */,
+				DA56EBD61E78E8C40033C0F0 /* FFDropDownMenuTriangleView.h */,
+				DA56EBD71E78E8C40033C0F0 /* FFDropDownMenuTriangleView.m */,
+				DA56EBD81E78E8C40033C0F0 /* FFDropDownMenuView.h */,
+				DA56EBD91E78E8C40033C0F0 /* FFDropDownMenuView.m */,
+			);
+			path = FFDropDownMenu;
+			sourceTree = "<group>";
+		};
 		DA7FDEA21E640D9400394E1E = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +265,7 @@
 		DA7FDEF31E6413E600394E1E /* Scan */ = {
 			isa = PBXGroup;
 			children = (
+				DA56EBCC1E78E8C40033C0F0 /* FFDropDownMenu */,
 				DAABCC8E1E779BB000AF9C49 /* icon */,
 				DA4A15251E7776B400722F31 /* Localizable.strings */,
 				DA4A14FF1E7775BB00722F31 /* HistoryListTableViewController.h */,
@@ -241,6 +291,11 @@
 		DAABCC8E1E779BB000AF9C49 /* icon */ = {
 			isa = PBXGroup;
 			children = (
+				DA56EBEC1E7912DC0033C0F0 /* light_off.png */,
+				DA56EBED1E7912DC0033C0F0 /* light_on.png */,
+				DA56EBE61E7910430033C0F0 /* more.png */,
+				DA56EBE81E7910BC0033C0F0 /* photos.png */,
+				DA56EBE91E7910BC0033C0F0 /* scan.png */,
 				DAABCC8F1E779BC800AF9C49 /* green_light.png */,
 				DAABCC901E779BC800AF9C49 /* red_light.png */,
 			);
@@ -363,10 +418,15 @@
 				DAABCC921E779BC800AF9C49 /* red_light.png in Resources */,
 				DAABCC911E779BC800AF9C49 /* green_light.png in Resources */,
 				DA4A15231E7776B400722F31 /* Localizable.strings in Resources */,
+				DA56EBEA1E7910BC0033C0F0 /* photos.png in Resources */,
 				DA7FDEBE1E640D9400394E1E /* LaunchScreen.storyboard in Resources */,
+				DA56EBE71E7910430033C0F0 /* more.png in Resources */,
+				DA56EBEB1E7910BC0033C0F0 /* scan.png in Resources */,
 				DAABCC941E77AB9900AF9C49 /* Assets.xcassets in Resources */,
+				DA56EBEE1E7912DC0033C0F0 /* light_off.png in Resources */,
 				DA50F2761E76F114004C5579 /* InfoPlist.strings in Resources */,
 				DA7FDEB91E640D9400394E1E /* Main.storyboard in Resources */,
+				DA56EBEF1E7912DC0033C0F0 /* light_on.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,11 +500,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DA4A15111E7775BB00722F31 /* HistoryListTableViewController.m in Sources */,
+				DA56EBDD1E78E8C40033C0F0 /* FFDropDownMenuModel.m in Sources */,
 				DA4A15141E7775BB00722F31 /* QRModel.m in Sources */,
 				DA4A15161E7775BB00722F31 /* QRView.m in Sources */,
 				DA4A15131E7775BB00722F31 /* QRMenu.m in Sources */,
 				DA7FDEB61E640D9400394E1E /* ViewController.m in Sources */,
+				DA56EBDE1E78E8C40033C0F0 /* FFDropDownMenuTriangleView.m in Sources */,
+				DA56EBDC1E78E8C40033C0F0 /* FFDropDownMenuCell.m in Sources */,
+				DA56EBDA1E78E8C40033C0F0 /* FFDropDownMenuBasedCell.m in Sources */,
 				DA7FDEB31E640D9400394E1E /* AppDelegate.m in Sources */,
+				DA56EBDF1E78E8C40033C0F0 /* FFDropDownMenuView.m in Sources */,
+				DA56EBDB1E78E8C40033C0F0 /* FFDropDownMenuBasedModel.m in Sources */,
 				DA7FDEB01E640D9400394E1E /* main.m in Sources */,
 				DAABCC971E77AE8500AF9C49 /* DBManager.m in Sources */,
 				DA4A15171E7775BB00722F31 /* QRViewController.m in Sources */,
