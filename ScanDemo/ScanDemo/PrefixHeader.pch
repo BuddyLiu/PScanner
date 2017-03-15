@@ -9,7 +9,6 @@
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
 
-#import "SVProgressHUD.h"
 
 #endif /* PrefixHeader_pch */
 

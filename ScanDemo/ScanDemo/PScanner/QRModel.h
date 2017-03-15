@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface QRModel :
+@interface QRModel : NSObject
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *detail;
