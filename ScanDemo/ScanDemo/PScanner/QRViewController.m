@@ -241,9 +241,16 @@
 {
     if(sender.tag == 1003)
     {
-        [sender setBackgroundImage:[UIImage imageNamed:@"light_on"] forState:UIControlStateNormal];
-        [self turnOnLed];
-        sender.tag = 1004;
+        if([self turnOnLed])
+        {
+            [sender setBackgroundImage:[UIImage imageNamed:@"light_on"] forState:UIControlStateNormal];
+            sender.tag = 1004;
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertLightPrompt", @"提示标题") message:NSLocalizedString(@"AlertLightMessage", @"提示语") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertLightSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
+            [alert show];
+        }
     }
     else
     {
@@ -253,33 +260,33 @@
     }
 }
 
--(void)turnOffLed {
+-(BOOL)turnOffLed {
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     if ([device hasTorch])
     {
         [device lockForConfiguration:nil];
         [device setTorchMode: AVCaptureTorchModeOff];
         [device unlockForConfiguration];
+        return YES;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertLightPrompt", @"提示标题") message:NSLocalizedString(@"AlertLightMessage", @"提示语") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertLightSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
-        [alert show];
+        return NO;
     }
 }
 
--(void)turnOnLed {
+-(BOOL)turnOnLed {
     AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     if ([device hasTorch])
     {
         [device lockForConfiguration:nil];
         [device setTorchMode: AVCaptureTorchModeOn];
         [device unlockForConfiguration];
+        return YES;
     }
     else
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AlertLightPrompt", @"提示标题") message:NSLocalizedString(@"AlertLightMessage", @"提示语") delegate:self cancelButtonTitle:NSLocalizedString(@"AlertLightSureBtnTitle", @"确定按钮") otherButtonTitles:nil];
-        [alert show];
+        return NO;
     }
 }
 

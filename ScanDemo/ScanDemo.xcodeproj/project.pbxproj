@@ -268,6 +268,8 @@
 				DA56EBCC1E78E8C40033C0F0 /* FFDropDownMenu */,
 				DAABCC8E1E779BB000AF9C49 /* icon */,
 				DA4A15251E7776B400722F31 /* Localizable.strings */,
+				DA4A150B1E7775BB00722F31 /* QRViewController.h */,
+				DA4A150C1E7775BB00722F31 /* QRViewController.m */,
 				DA4A14FF1E7775BB00722F31 /* HistoryListTableViewController.h */,
 				DA4A15001E7775BB00722F31 /* HistoryListTableViewController.m */,
 				DA4A15011E7775BB00722F31 /* QRItem.h */,
@@ -280,8 +282,6 @@
 				DA4A15081E7775BB00722F31 /* QRSourceHelper.m */,
 				DA4A15091E7775BB00722F31 /* QRView.h */,
 				DA4A150A1E7775BB00722F31 /* QRView.m */,
-				DA4A150B1E7775BB00722F31 /* QRViewController.h */,
-				DA4A150C1E7775BB00722F31 /* QRViewController.m */,
 				DAABCC951E77AE8500AF9C49 /* DBManager.h */,
 				DAABCC961E77AE8500AF9C49 /* DBManager.m */,
 			);
@@ -691,7 +691,7 @@
 				DEVELOPMENT_TEAM = Z93M95VE4P;
 				GCC_PREFIX_HEADER = $SRCROOT/ScanDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = ScanDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Paul.ScanDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -709,7 +709,7 @@
 				DEVELOPMENT_TEAM = Z93M95VE4P;
 				GCC_PREFIX_HEADER = $SRCROOT/ScanDemo/PrefixHeader.pch;
 				INFOPLIST_FILE = ScanDemo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Paul.ScanDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

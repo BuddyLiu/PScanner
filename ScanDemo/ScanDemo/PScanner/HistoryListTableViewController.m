@@ -156,9 +156,7 @@
             UIAlertAction *sureAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"AlertSureBtnTitle", @"确定按钮") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.pasteboard.string]])
                 {
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string] options:@{} completionHandler:^(BOOL success) {
-                        
-                    }];
+                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string]];
                 }
             }];
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"AlertCancelBtnTitle", @"取消按钮") style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -193,9 +191,7 @@
         {
             if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.pasteboard.string]])
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string] options:@{} completionHandler:^(BOOL success) {
-                    
-                }];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.pasteboard.string]];
             }
         }
         else

@@ -103,9 +103,7 @@
         {
             if([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:self.scanContentLabel.text]])
             {
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.scanContentLabel.text] options:@{} completionHandler:^(BOOL success) {
-                    
-                }];
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.scanContentLabel.text]];
             }
         }
         else
